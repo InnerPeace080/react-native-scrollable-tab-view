@@ -110,7 +110,9 @@ const ScrollableTabView = React.createClass({
 
   updateSceneKeys({ page, children = this.props.children, callback = () => {}, }) {
     let newKeys = this.newSceneKeys({ previousKeys: this.state.sceneKeys, currentPage: page, children, });
-    this.setState({currentPage: page, sceneKeys: newKeys, }, callback);
+    InteractionManager.runAfterInteractions(() => {
+      this.setState({currentPage: page, sceneKeys: newKeys, }, callback);
+    });
   },
 
   newSceneKeys({ previousKeys = [], currentPage = 0, children = this.props.children, }) {
